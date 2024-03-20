@@ -28,8 +28,6 @@ router.post("/adduser", upload.single("file"), controller.adduser);
 
 router.delete("/deleteuser", controller.deleteuser);
 
-// router.post("/edituser", controller.getuser);
-
 router.patch("/edituser", upload.single('file'),controller.edituser);
 
 module.exports = router;
