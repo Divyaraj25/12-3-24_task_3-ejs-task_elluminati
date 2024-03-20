@@ -1,0 +1,61 @@
+<!-- // navbar -->
+
+<nav class="navbar bg-warning bg-gradient m-3 me-0 ">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-2">Users Data</a>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight" id="adduserbtn">Add User</button>
+        <form class="d-flex" role="search" id="searchform">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
+        </form>
+    </div>
+</nav>
+
+<!-- offcanvas for add User -->
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">User Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <form method="post" enctype="multipart/form-data" id="formdata">
+
+            <div class="account-details">
+                <div class="form-group">
+                    <label class="form-title" for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-title" for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-title" for="contact">Contact Number</label>
+                    <input type="tel" name="contact" id="contact" placeholder="Enter you number" required>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="id" id="id" required>
+                </div>
+
+
+            </div>
+
+            <div class="user-details">
+                <div class="form-group">
+                    <label class="form-title" for="file">Profile Photo</label>
+                    <input type="file" name="file" id="file" placeholder="Enter first name" required>
+                </div>
+                <div class="d-hidden" id="userdemoparent">
+                    <p id="userdemoname" class="d-hidden"></p>
+                </div>
+            </div>
+            <div class="button">
+                <input type="button" value="Register" id="multibutton">
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>
