@@ -165,20 +165,6 @@ $(document).on("click", "#multibutton", function (e) {
 $(document).on("click", "#searchbtn", function (e) {
   e.preventDefault();
 
-  // let search = $("#search").val();
-  // console.log(search.charAt(0));
-  // console.log(search.charAt(0).includes("0" | "1" | "2"));
-  // console.log(typeof search.charAt(0).includes("0" || "1"));
-  // console.log(typeof search.charAt(0));
-
-  // const isalphabet = /^[a-zA-Z@.]+/.test($("#search").val());
-  // // console.log(isalphabet);
-  // if(!isalphabet){
-  //   var search = Number($("#search").val());
-  // }else{
-  //   var search = $("#search").val();
-  // }
-
   console.log("searching...");
   $.ajax({
     url: `http://localhost:3000/search?search=${$("#search").val()}`,

@@ -28,38 +28,11 @@ const searchuser = async (req, res) => {
       }else{
         var searchnumber = parseInt(search)
       }
-      // console.log(search);
-      // console.log(searchnumber);
-      // searching.forEach(element => {
-      //  console.log(element); 
-      // });
-      // if (!search.charAt(0).includes("0" || "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")) {
-      //   search = Number(search);
-      // }
-      // const firstChar = search.includes("0"||"1"||"2"||"3"||"4"||"5"||"6"||"7"||"8"||"9");
-      // console.log(firstChar);
-      // const number =
-      //   firstChar ? Number(search.match(/\d+/)) : "";
-      // -    const number = Number(search.match(/\d+/));
-
-      // console.log(search);
-      // const regsearch = new RegExp("/[0-9]+/");
-      // if (!regsearch.test(search)) {
-      //   console.log("number");
-      //   var number = Number(search);
-      // } else {
-      //   console.log("alphabet");
-      // }
-      // console.log(Number(search.charAt(0)));
-      // console.log(search.alphabet());
-      // console.log(search.numeric());
       var user = await userModel.find({
         $or: [
           { username: { $regex: `^${searchalphabet}`, $options: "i" } },
           { email: { $regex: `^${searchalphabet}`, $options: "i" } },
           { contact: { $eq: searchnumber } },
-          // { contact: { $regex: `^${search}`, $options: "i" } },
-          // { contact: { $regex: `^${number}`, $options: "i" } },
         ],
       });
     }
