@@ -24,6 +24,8 @@ const upload = multer({
 
 router.get("/", controller.homepage);
 
+router.get('/search',controller.searchuser)
+
 router.post("/adduser", upload.single("file"), controller.adduser);
 
 router.delete("/deleteuser", controller.deleteuser);

@@ -1,22 +1,69 @@
 const userModel = require("../models/users");
 
 const homepage = async (req, res) => {
-
   try {
-    const { search } = req.body;
-    const data = await userModel.find({
-      $or: [
-        { username: { $regex: search || "", $options: "i" } },
-        { email: { $regex: search || "", $options: "i" } },
-        { contact: { $regex: search || "", $options: "i" } },
-      ],
-    });
+    const data = await userModel.find();
     res.render("index", {
       data,
-      // users,
-      // page,
-      // pages: Math.ceil(count / limit),
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const searchuser = async (req, res) => {
+  let { search } = req.query;
+  console.log(search);
+  try {
+    if (!search) {
+      var user = await userModel.find();
+    } else {
+      console.log(typeof search);
+      const firstChar = search.charAt(0);
+      console.log(firstChar);
+      const searching = firstChar.match(/[0-9]+/g);
+      console.log(searching);
+      if(searching==null){
+        var searchalphabet = search
+      }else{
+        var searchnumber = parseInt(search)
+      }
+      // console.log(search);
+      // console.log(searchnumber);
+      // searching.forEach(element => {
+      //  console.log(element); 
+      // });
+      // if (!search.charAt(0).includes("0" || "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")) {
+      //   search = Number(search);
+      // }
+      // const firstChar = search.includes("0"||"1"||"2"||"3"||"4"||"5"||"6"||"7"||"8"||"9");
+      // console.log(firstChar);
+      // const number =
+      //   firstChar ? Number(search.match(/\d+/)) : "";
+      // -    const number = Number(search.match(/\d+/));
+
+      // console.log(search);
+      // const regsearch = new RegExp("/[0-9]+/");
+      // if (!regsearch.test(search)) {
+      //   console.log("number");
+      //   var number = Number(search);
+      // } else {
+      //   console.log("alphabet");
+      // }
+      // console.log(Number(search.charAt(0)));
+      // console.log(search.alphabet());
+      // console.log(search.numeric());
+      var user = await userModel.find({
+        $or: [
+          { username: { $regex: `^${searchalphabet}`, $options: "i" } },
+          { email: { $regex: `^${searchalphabet}`, $options: "i" } },
+          { contact: { $eq: searchnumber } },
+          // { contact: { $regex: `^${search}`, $options: "i" } },
+          // { contact: { $regex: `^${number}`, $options: "i" } },
+        ],
+      });
+    }
+    res.send(user);
   } catch (error) {
     console.log(error);
   }
@@ -45,14 +92,13 @@ const edituser = async (req, res) => {
   console.log(req.body);
   console.log(req.file);
   const old = await userModel.findOne({ _id: id });
-  const oldpath = old.path
-  if(req.file){
+  const oldpath = old.path;
+  if (req.file) {
     var path = req.file.path;
     path = path.replace("\\", "/");
     path = path.slice(path.search("images"), path.length);
     console.log(path);
   }
-  
 
   const updatedFields = {
     username,
@@ -93,4 +139,5 @@ module.exports = {
   adduser,
   edituser,
   deleteuser,
+  searchuser,
 };
