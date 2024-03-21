@@ -33,6 +33,8 @@ const searchuser = async (req, res) => {
           { username: { $regex: `^${searchalphabet}`, $options: "i" } },
           { email: { $regex: `^${searchalphabet}`, $options: "i" } },
           { contact: { $eq: searchnumber } },
+          // { contact: { $regex: `^${search}`, $options: "i" } },
+          // { contact: { $regex: `^${number}`, $options: "i" } },
         ],
       });
     }
