@@ -57,7 +57,7 @@ $(document).on("click", "#delete", function (e) {
     },
   });
 });
-$(document).on("click", "#multibuttonforedit", function (e) {
+$(document).on("submit", "#formdataforedit", function (e) {
   e.preventDefault();
   console.log("editing...");
   try {
@@ -106,7 +106,8 @@ $(document).on("click", "#adduserbtn", function (e) {
     $("#multibutton").attr("value", "Register");
   }
 });
-$(document).on("click", "#multibutton", function (e) {
+// $("#contact").attr('value')==new RegExp("^[0-9]{10}$").test($("#contact").val())
+$(document).on("submit", "#formdata", function (e) {
   e.preventDefault();
 
   console.log("adding to database...");
