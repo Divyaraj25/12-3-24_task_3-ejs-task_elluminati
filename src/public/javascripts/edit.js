@@ -14,6 +14,7 @@ $(document).on("click", "#edit", function (e) {
     .replaceAll("-", " ");
   console.log(image);
   $("#formdata").attr("id", "formdataforedit");
+  $("#formdataforedit")[0].reset();
   if ($("#multibuttonforadd").attr("id") == "multibuttonforadd") {
     $("#multibuttonforadd").attr("id", "multibuttonforedit");
     $("#multibuttonforedit").val("Edit");
@@ -53,6 +54,7 @@ $(document).on("submit", "#formdataforedit", function (e) {
         $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
         $("#multibuttonforedit").attr("id", "multibutton");
         $("#formdataforedit").attr("id", "formdata");
+        // $("#offcanvasRight").attr('aria-modal', 'false').removeClass('show').removeAtribute('role');
       },
       error: function (xhr, status, error) {
         console.log(status);

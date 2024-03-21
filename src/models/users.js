@@ -9,11 +9,13 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         lowercase:true,
-        required: true
+        required: true,
+        unique: true
     },
     contact: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     path: {
         type: String,

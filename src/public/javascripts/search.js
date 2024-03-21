@@ -8,9 +8,16 @@ $(document).on("click", "#searchbtn", function (e) {
     success: function (data) {
       // $('#appendData').html(data)
       console.log(data);
-      $("#appendData").html("");
-      for (let i = 0; i < data.length; i++) {
-        htmlstring = `
+      console.log(data.length);
+      if (data.length === 0) {
+        $("#appendData").html("");
+        $("#appendData").append(
+          `<h1 class="table border p-5 text-center">No Data Found</h1>`
+        );
+      } else {
+        $("#appendData").html("");
+        for (let i = 0; i < data.length; i++) {
+          htmlstring = `
         <div class="row mx-5 table border w-100" id="${data[i]._id}">
                             <div class="col-2" id="profileImage"><img src="${data[i].path}" id="userProfileImage" alt="Profile Image" /></div>
                             <div class="col-6" id="details">
@@ -38,7 +45,8 @@ $(document).on("click", "#searchbtn", function (e) {
                             </div>
                         </div>
         `;
-        $("#appendData").append(htmlstring);
+          $("#appendData").append(htmlstring);
+        }
       }
     },
     error: function (xhr, status, error) {

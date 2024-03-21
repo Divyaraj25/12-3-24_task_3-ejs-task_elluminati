@@ -3,11 +3,14 @@ $(document).on("click", "#adduserbtn", function (e) {
   $("#userdemoname").css({
     display: "none",
   });
+  if ($("#formdata").attr("id") == "formdata") {
+    $("#formdata")[0].reset();
+  }
   if ($("#formdataforedit").attr("id") == "formdataforedit") {
+    $("#formdataforedit")[0].reset();
     $("#formdataforedit").attr({
       id: "formdata",
     });
-    $("#formdata")[0].reset();
   }
   if ($("#multibuttonforedit").attr("id") == "multibuttonforedit") {
     $("#multibuttonforedit").attr({ value: "Register", id: "multibutton" });

@@ -43,7 +43,8 @@ const searchuser = async (req, res) => {
 };
 
 const adduser = async (req, res) => {
-  console.log(req.body);
+  try {
+    console.log(req.body);
   console.log(req.file);
   const { username, email, contact } = req.body;
   let path = req.file.path;
@@ -58,6 +59,9 @@ const adduser = async (req, res) => {
   });
   await user.save();
   res.status(201).json({ user, filename: req.file.filename });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const edituser = async (req, res) => {
