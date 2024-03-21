@@ -1,3 +1,5 @@
+// Loop is running for each button
+
 function called() {
   // Get all the buttons
   let buttons = document.querySelectorAll("#edit");
