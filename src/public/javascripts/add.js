@@ -22,7 +22,7 @@ $(document).on("click", "#adduserbtn", function (e) {
     display: "flex",
     "justify-content": "space-between",
   });
-  $("#multibutton").attr("data-bs-dismiss", "offcanvas");
+  // $("#multibutton").attr("data-bs-dismiss", "offcanvas");
 });
 $(document).on("submit", "#formdata", function (e) {
   e.preventDefault();
@@ -77,7 +77,7 @@ $(document).on("submit", "#formdata", function (e) {
         $("#appendData").append(appendedData);
       }
       $("#formdata")[0].reset();
-      // $("#multibutton").attr("data-bs-dismiss", "offcanvas");
+      $("#close").trigger("click");
     },
     error: function (xhr, status, error) {
       $("#multibutton").attr("data-bs-dismiss", "");

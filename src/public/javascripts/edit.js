@@ -33,7 +33,6 @@ $(document).on("click", "#edit", function (e) {
       margin: "auto",
     })
     .text(`selected : ${image}`);
-  $("#multibuttonforedit").attr("data-bs-dismiss", "offcanvas");
 });
 
 $(document).on("submit", "#formdataforedit", function (e) {
@@ -52,6 +51,7 @@ $(document).on("submit", "#formdataforedit", function (e) {
       $(`div[id=${id}]`).find("#Email").text(data.email);
       $(`div[id=${id}]`).find("#Contact").text(data.contact);
       $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
+      $("#close").trigger("click");
     },
     error: function (xhr, status, error) {
       console.log(status);
