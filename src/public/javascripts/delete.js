@@ -11,12 +11,19 @@ $(document).on("click", "#delete", function (e) {
       data: {
         id: id,
       },
-      success: function () {
+      success: function (count) {
         $(`div[id=${id}]`).remove();
-        if ($("#appendData").children().length === 0) {
-          $("#appendData").html(
-            '<h1 class="table border p-5 text-center">No Data Found</h1>'
-          );
+        if(count===0){
+          if ($("#appendData").find("div").length === 0) {
+            $("#appendData").html(
+              '<h1 class="table border p-5 text-center">No Data Found</h1>'
+            );
+          }
+        }
+        if(count%10==0){
+          $("ul").find("li:last").remove()
+          $("ul").find("#pageno:last").trigger("click")
+          // $("ul").remove(`<li class="page-item"><button class="page-link" id="pageno">${(count+10)/10}</button></li>`)
         }
       },
     });

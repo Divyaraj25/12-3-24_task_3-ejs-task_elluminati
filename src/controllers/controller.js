@@ -1,10 +1,26 @@
 const userModel = require("../models/users");
 
 const homepage = async (req, res) => {
+  let limit = 10;
+  let page = req.query.page || 1;
+  let users = limit * page
+  let skip = (page - 1) * limit;
+  let count = await userModel.countDocuments();
+  let pages = Math.ceil(count / limit);
+
+  console.log(pages);
+  console.log(count);
+
   try {
-    const data = await userModel.find();
+    const data = await userModel.find().skip(skip).limit(limit).exec();
     res.render("index", {
       data,
+      limit,
+      users,
+      page,
+      pages,
+      skip,
+      count,
     });
   } catch (error) {
     console.log(error);
@@ -58,9 +74,10 @@ const adduser = async (req, res) => {
       path,
     });
     await user.save();
-    res.status(201).json({ user, filename: req.file.filename });
+    const count = await userModel.countDocuments();
+    res.status(201).json({ user, filename: req.file.filename ,count});
   } catch (e) {
-    console.log("error : "+e);
+    console.log("error : " + e);
     res
       .status(409)
       .send({ e, email: req.body.email, contact: req.body.contact });
@@ -112,7 +129,8 @@ const deleteuser = async (req, res) => {
   const id = req.body.id;
   console.log(id);
   await userModel.findOneAndDelete({ _id: id });
-  res.send();
+  const count = await userModel.countDocuments()
+  res.status(200).json(count);
 };
 
 module.exports = {

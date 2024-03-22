@@ -36,7 +36,7 @@ $(document).on("submit", "#formdata", function (e) {
     data: new FormData(document.getElementById("formdata")),
     success: function (data) {
       let appendedData = `
-              <div class="row mx-5 table border w-100" id="${data.user._id}">
+              <div class="row mx-5 table border" id="${data.user._id}">
                           <div class="col-2" id="profileImage"><img src="${data.user.path}" id="userProfileImage" alt="Profile Image" /></div>
                           <div class="col-6" id="details">
                               <div class="row">
@@ -67,8 +67,17 @@ $(document).on("submit", "#formdata", function (e) {
         $("#appendData").html("");
       }
       $("#id").val(data.user._id);
-      $("#appendData").append(appendedData);
+      if ((data.count - 1) % 10 == 0) {
+        $("ul")
+          .append(`<li class="page-item"><button class="page-link" id="pageno">
+        ${(data.count - 1 + 10) / 10}
+    </button></li>`);
+        $("#appendData").append(appendedData);
+      } else {
+        $("#appendData").append(appendedData);
+      }
       $("#formdata")[0].reset();
+      // $("#multibutton").attr("data-bs-dismiss", "offcanvas");
     },
     error: function (xhr, status, error) {
       $("#multibutton").attr("data-bs-dismiss", "");
