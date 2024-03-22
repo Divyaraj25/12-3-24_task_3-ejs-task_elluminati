@@ -23,10 +23,10 @@ const searchuser = async (req, res) => {
       console.log(firstChar);
       const searching = firstChar.match(/[0-9]+/g);
       console.log(searching);
-      if(searching==null){
-        var searchalphabet = search
-      }else{
-        var searchnumber = parseInt(search)
+      if (searching == null) {
+        var searchalphabet = search;
+      } else {
+        var searchnumber = parseInt(search);
       }
       var user = await userModel.find({
         $or: [
@@ -45,21 +45,25 @@ const searchuser = async (req, res) => {
 const adduser = async (req, res) => {
   try {
     console.log(req.body);
-  console.log(req.file);
-  const { username, email, contact } = req.body;
-  let path = req.file.path;
-  path = path.replace("\\", "/");
-  path = path.slice(path.search("images"), path.length);
+    console.log(req.file);
+    const { username, email, contact } = req.body;
+    let path = req.file.path;
+    path = path.replace("\\", "/");
+    path = path.slice(path.search("images"), path.length);
 
-  const user = new userModel({
-    username,
-    email,
-    contact,
-    path,
-  });
-  await user.save();
-  res.status(201).json({ user, filename: req.file.filename });
+    const user = new userModel({
+      username,
+      email,
+      contact,
+      path,
+    });
+    await user.save();
+    res.status(201).json({ user, filename: req.file.filename });
   } catch (e) {
+    console.log("error : "+e);
+    res
+      .status(409)
+      .send({ e, email: req.body.email, contact: req.body.contact });
     console.log(e);
   }
 };
