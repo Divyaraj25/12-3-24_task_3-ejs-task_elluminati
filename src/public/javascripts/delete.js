@@ -3,7 +3,7 @@ $(document).on("click", "#delete", function (e) {
   console.log("deleting...");
   const id = e.target.parentNode.parentNode.id;
   console.log(`Button with value ${id} was clicked`);
-  if(confirm('Are you sure to delete this user?')){
+  if (confirm("Are you sure to delete this user?")) {
     console.log("deleting...");
     $.ajax({
       url: "/deleteuser",
@@ -18,11 +18,6 @@ $(document).on("click", "#delete", function (e) {
             '<h1 class="table border p-5 text-center">No Data Found</h1>'
           );
         }
-        // $("#userdeleted").css({ display: "flex" ,"justify-content": "space-between",});
-        // $("#userdeleteclose").click(function (e) { 
-        //   e.preventDefault();
-        //   $("#userdeleted").css({ display: "none" });
-        // });
       },
     });
   }

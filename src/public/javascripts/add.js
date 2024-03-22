@@ -23,17 +23,10 @@ $(document).on("click", "#adduserbtn", function (e) {
     "justify-content": "space-between",
   });
   $("#multibutton").attr("data-bs-dismiss", "offcanvas");
-
-  // document.getElementById("successMsg").textContent = "User Adding.....";
 });
 $(document).on("submit", "#formdata", function (e) {
   e.preventDefault();
   console.log("adding to database...");
-  // console.log(
-  //   JSON.stringify(
-  //     Object.fromEntries(new FormData(document.getElementById("formdata")))
-  //   )
-  // );
   $.ajax({
     url: "http://localhost:3000/adduser",
     method: "POST",
@@ -76,29 +69,9 @@ $(document).on("submit", "#formdata", function (e) {
       $("#id").val(data.user._id);
       $("#appendData").append(appendedData);
       $("#formdata")[0].reset();
-      // $("#multibutton").attr("data-bs-dismiss", "offcanvas");
-      // document.getElementById(
-      //   "successMsg"
-      // ).innerHTML = `USER ADDED SUCCESSFULLY <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successclose"></button>`;
-      // $("#successclose").click(function (e) {
-      //   e.preventDefault();
-      //   $("#successMsg").css({
-      //     display: "none",
-      //   });
-      // });
-      // $("#multibutton").append(
-      //   `<div class="modal-dialog modal-lg">${data.username} added successfully</div>`
-      // );
     },
     error: function (xhr, status, error) {
       $("#multibutton").attr("data-bs-dismiss", "");
-      console.log(error); //conflict
-      console.log(status); //error
-      console.log(xhr); // readystate:4 ....
-      console.log(xhr.status); // 409
-      console.log(xhr.statusText); // conflict
-      console.log(xhr.responseText); // error actual text
-      console.log(xhr.responseJSON); // error actual json
       const { e, email, contact } = xhr.responseJSON;
       if (e.code == 11000) {
         if (e.keyValue.email) {
@@ -107,26 +80,6 @@ $(document).on("submit", "#formdata", function (e) {
           alert(`${contact} Already Exists`);
         }
       }
-      // if (status == 400) {
-      //   if(e==`MongoServerError: E11000 duplicate key error collection: task.users index: email_1 dup key: { email: ${email} }`){
-      //     alert(`${email} Already Exists`);
-      //   }else if(e==`MongoServerError: E11000 duplicate key error collection: task.users index: contact_1 dup key: { contact: ${contact} }`){
-      //     alert(`${contact} Already Exists`);
-      //   }
-      // $("#erroraddinguser").css({
-      //   display: "flex",
-      //   "justify-content": "space-between",
-      // });
-      // $("#userexistclose").click(function (e) {
-      //   e.preventDefault();
-      //   $("#erroraddinguser").css({
-      //     display: "none",
-      //   });
-      // });
-      // } else {
-      //   alert("Something went wrong");
-      //   console.log(e);
-      // }
     },
   });
 });

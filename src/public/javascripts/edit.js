@@ -33,8 +33,7 @@ $(document).on("click", "#edit", function (e) {
       margin: "auto",
     })
     .text(`selected : ${image}`);
-  $("#multibuttonforedit").attr('data-bs-dismiss', 'offcanvas');
-  // $("#multibuttonforedit").attr('data-bs-target', '#offcanvasRight');
+  $("#multibuttonforedit").attr("data-bs-dismiss", "offcanvas");
 });
 
 $(document).on("submit", "#formdataforedit", function (e) {
@@ -53,16 +52,6 @@ $(document).on("submit", "#formdataforedit", function (e) {
       $(`div[id=${id}]`).find("#Email").text(data.email);
       $(`div[id=${id}]`).find("#Contact").text(data.contact);
       $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
-      // $("#multibuttonforedit").attr("data-bs-dismiss", "offcanvas");
-      // $("#multibuttonforedit").attr(" data-bs-dismiss", "offcanvas");
-      // $("#multibuttonforedit").attr("id", "multibutton");
-      // $("#formdataforedit").attr("id", "formdata");
-      // $("#useredited").css({display:'flex', "justify-content": "space-between",});
-      // $("#successclose").click(function (e) {
-      //   e.preventDefault();
-      //   $("#useredited").css({display:"none"});
-      // });
-      // $("#offcanvasRight").attr('aria-modal', 'false').removeClass('show').removeAtribute('role');
     },
     error: function (xhr, status, error) {
       console.log(status);
