@@ -37,6 +37,7 @@ $(document).on("click", "#edit", function (e) {
 
 $(document).on("submit", "#formdataforedit", function (e) {
   e.preventDefault();
+  console.log(e.target);
   console.log("editing...");
   console.log("editing data...");
   $.ajax({
@@ -52,6 +53,9 @@ $(document).on("submit", "#formdataforedit", function (e) {
       $(`div[id=${id}]`).find("#Contact").text(data.contact);
       $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
       $("#close").trigger("click");
+      setTimeout(function () {
+        alert("User Edited Successfully")
+      }, 500)
     },
     error: function (xhr, status, error) {
       console.log(status);

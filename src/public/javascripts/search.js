@@ -11,29 +11,38 @@ $(document).on("click", "#searchbtn", function (e) {
           data.search("</section>")
         );
         $("#appendData").html("");
+        if (sliceddata.length === 0) {
+          $("#appendData").append(
+            `<h1 class="table border p-5 text-center">No Data Found</h1>`
+          );
+          $("ul").css("display", "none");
+        }
         $("#appendData").append(sliceddata);
       },
     });
     $("ul").css("display", "flex");
   } else {
-    console.log("searching...");
-    $.ajax({
-      url: `http://localhost:3000/search?search=${$("#search").val()}`,
-      method: "get",
-      success: function (data) {
-        // $('#appendData').html(data)
-        console.log(data);
-        console.log(data.length);
-        if (data.length === 0) {
-          $("#appendData").html("");
-          $("#appendData").append(
-            `<h1 class="table border p-5 text-center">No Data Found</h1>`
-          );
-          $("ul").css("display", "none");
-        } else {
-          $("#appendData").html("");
-          for (let i = 0; i < data.length; i++) {
-            htmlstring = `
+    if ($("#appendData").find("h1").text() === "No Data Found") {
+      alert("No Data in the database");
+    } else {
+      console.log("searching...");
+      $.ajax({
+        url: `http://localhost:3000/search?search=${$("#search").val()}`,
+        method: "get",
+        success: function (data) {
+          // $('#appendData').html(data)
+          console.log(data);
+          console.log(data.length);
+          if (data.length === 0) {
+            $("#appendData").html("");
+            $("#appendData").append(
+              `<h1 class="table border p-5 text-center">No Data Found</h1>`
+            );
+            $("ul").css("display", "none");
+          } else {
+            $("#appendData").html("");
+            for (let i = 0; i < data.length; i++) {
+              htmlstring = `
           <div class="row mx-5 table border w-100" id="${data[i]._id}">
                               <div class="col-2" id="profileImage"><img src="${data[i].path}" id="userProfileImage" alt="Profile Image" /></div>
                               <div class="col-6" id="details">
@@ -61,15 +70,16 @@ $(document).on("click", "#searchbtn", function (e) {
                               </div>
                           </div>
           `;
-            $("#appendData").append(htmlstring);
+              $("#appendData").append(htmlstring);
+            }
+            $("ul").css("display", "none");
           }
-          $("ul").css("display", "none");
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log(status);
-        console.log(error);
-      },
-    });
+        },
+        error: function (xhr, status, error) {
+          console.log(status);
+          console.log(error);
+        },
+      });
+    }
   }
 });

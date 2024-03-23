@@ -3,7 +3,6 @@ const userModel = require("../models/users");
 const homepage = async (req, res) => {
   let limit = 10;
   let page = req.query.page || 1;
-  let users = limit * page
   let skip = (page - 1) * limit;
   let count = await userModel.countDocuments();
   let pages = Math.ceil(count / limit);
@@ -15,11 +14,7 @@ const homepage = async (req, res) => {
     const data = await userModel.find().skip(skip).limit(limit).exec();
     res.render("index", {
       data,
-      limit,
-      users,
-      page,
       pages,
-      skip,
       count,
     });
   } catch (error) {

@@ -25,6 +25,9 @@ $(document).on("click", "#delete", function (e) {
           $("ul").find("#pageno:last").trigger("click")
           // $("ul").remove(`<li class="page-item"><button class="page-link" id="pageno">${(count+10)/10}</button></li>`)
         }
+        setTimeout(() => {
+          alert("Deleted Successfully");
+        },500)
       },
     });
   }

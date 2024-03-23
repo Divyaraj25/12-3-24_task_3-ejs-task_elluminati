@@ -78,6 +78,9 @@ $(document).on("submit", "#formdata", function (e) {
       }
       $("#formdata")[0].reset();
       $("#close").trigger("click");
+      setTimeout(() => {
+        alert("Registered Successfully");
+      },500)
     },
     error: function (xhr, status, error) {
       $("#multibutton").attr("data-bs-dismiss", "");
