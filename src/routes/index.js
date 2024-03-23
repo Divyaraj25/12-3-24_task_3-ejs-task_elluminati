@@ -22,10 +22,6 @@ const upload = multer({
   },
 });
 
-// router.use("/images", express.static(path.join(__dirname, "../public/images")),{
-//   maxAge: 31536000 // 1 year in seconds
-// });
-
 router.get("/", controller.homepage);
 
 router.get('/search',controller.searchuser)
