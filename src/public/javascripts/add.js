@@ -67,10 +67,10 @@ $(document).on("submit", "#formdata", function (e) {
         $("#appendData").html("");
       }
       $("#id").val(data.user._id);
-      if ((data.count - 1) % 10 == 0) {
+      if ((data.count - 1) % 5 == 0) {
         $("ul")
           .append(`<li class="page-item"><button class="page-link" id="pageno">
-        ${(data.count - 1 + 10) / 10}
+        ${(data.count - 1 + 5) / 5}
     </button></li>`);
         $("#appendData").append(appendedData);
       } else {

@@ -13,7 +13,7 @@ $(document).on("click", "#searchbtn", function (e) {
         $("#appendData").html("");
         if (sliceddata.length === 0) {
           $("#appendData").append(
-            `<h1 class="table border p-5 text-center">No Data Found</h1>`
+            `<h1 class="table border p-5 text-center">No Data Found in Database</h1>`
           );
           $("ul").css("display", "none");
         }
@@ -36,7 +36,7 @@ $(document).on("click", "#searchbtn", function (e) {
           if (data.length === 0) {
             $("#appendData").html("");
             $("#appendData").append(
-              `<h1 class="table border p-5 text-center">No Data Found</h1>`
+              `<h1 class="table border p-5 text-center">No Data Found in Database</h1>`
             );
             $("ul").css("display", "none");
           } else {

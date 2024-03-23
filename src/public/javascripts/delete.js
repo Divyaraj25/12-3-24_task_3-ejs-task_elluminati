@@ -20,10 +20,9 @@ $(document).on("click", "#delete", function (e) {
             );
           }
         }
-        if(count%10==0){
+        if(count%5==0){
           $("ul").find("li:last").remove()
           $("ul").find("#pageno:last").trigger("click")
-          // $("ul").remove(`<li class="page-item"><button class="page-link" id="pageno">${(count+10)/10}</button></li>`)
         }
         setTimeout(() => {
           alert("Deleted Successfully");

@@ -1,7 +1,7 @@
 const userModel = require("../models/users");
 
 const homepage = async (req, res) => {
-  let limit = 10;
+  let limit = 5;
   let page = req.query.page || 1;
   let skip = (page - 1) * limit;
   let count = await userModel.countDocuments();
