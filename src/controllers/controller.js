@@ -7,9 +7,6 @@ const homepage = async (req, res) => {
   let count = await userModel.countDocuments();
   let pages = Math.ceil(count / limit);
 
-  console.log(pages);
-  console.log(count);
-
   try {
     const data = await userModel.find().skip(skip).limit(limit).exec();
     res.render("index", {
