@@ -68,22 +68,27 @@ $(document).on("submit", "#formdata", function (e) {
       }
       $("#id").val(data.user._id);
       if ((data.count - 1) % 5 == 0) {
+        $("ul li button").removeClass("active");
         $("ul")
-          .append(`<li class="page-item"><button class="page-link" id="pageno">
+          .append(`<li class="page-item"><button class="page-link active" id="pageno">
         ${(data.count - 1 + 5) / 5}
     </button></li>`);
         $("#appendData").append(appendedData);
+        $('ul').find('li:last-child button').trigger('click')
       } else {
         $("#appendData").append(appendedData);
       }
       $("#formdata")[0].reset();
       $("#close").trigger("click");
+      if($('ul').find('li:first-child button').hasClass('active')&&data.count>5){
+        $('ul').find('li:last-child button').trigger('click')
+      }
       setTimeout(() => {
         alert("Registered Successfully");
       },500)
     },
     error: function (xhr, status, error) {
-      $("#multibutton").attr("data-bs-dismiss", "");
+      // $("#multibutton").attr("data-bs-dismiss", "");
       const { e, email, contact } = xhr.responseJSON;
       if (e.code == 11000) {
         if (e.keyValue.email) {

@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("node:path");
-const mongoose = require("mongoose");
 const controller = require("../controllers/controller");
-const userModel = require("../models/users");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

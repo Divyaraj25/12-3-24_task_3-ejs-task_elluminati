@@ -54,12 +54,20 @@ $(document).on("submit", "#formdataforedit", function (e) {
       $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
       $("#close").trigger("click");
       setTimeout(function () {
-        alert("User Edited Successfully")
-      }, 500)
+        alert("User Edited Successfully");
+      }, 500);
     },
     error: function (xhr, status, error) {
-      console.log(status);
-      console.log(error);
+      console.log(xhr.responseText);
+      console.log(xhr.responseJSON);
+      const { code, keyValue } = xhr.responseJSON;
+      if (code == 11000) {
+        if (keyValue.email) {
+          alert(`${keyValue.email} Already Exists`);
+        } else if (keyValue.contact) {
+          alert(`${keyValue.contact} Already Exists`);
+        }
+      }
     },
   });
 });

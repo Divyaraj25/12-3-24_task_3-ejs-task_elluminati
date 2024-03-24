@@ -41,8 +41,8 @@ const searchuser = async (req, res) => {
       }
       var user = await userModel.find({
         $or: [
-          { username: { $regex: `^${searchalphabet}`, $options: "i" } },
-          { email: { $regex: `^${searchalphabet}`, $options: "i" } },
+          { username: { $regex: `${searchalphabet}`, $options: "i" } },
+          { email: { $regex: `${searchalphabet}`, $options: "i" } },
           { contact: { $eq: searchnumber } },
         ],
       });
@@ -70,7 +70,7 @@ const adduser = async (req, res) => {
     });
     await user.save();
     const count = await userModel.countDocuments();
-    res.status(201).json({ user, filename: req.file.filename ,count});
+    res.status(201).json({ user, filename: req.file.filename, count });
   } catch (e) {
     console.log("error : " + e);
     res
@@ -116,7 +116,7 @@ const edituser = async (req, res) => {
     res.json(editedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to update user" });
+    res.status(409).send(error);
   }
 };
 
@@ -124,7 +124,7 @@ const deleteuser = async (req, res) => {
   const id = req.body.id;
   console.log(id);
   await userModel.findOneAndDelete({ _id: id });
-  const count = await userModel.countDocuments()
+  const count = await userModel.countDocuments();
   res.status(200).json(count);
 };
 

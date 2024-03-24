@@ -1,7 +1,10 @@
 $(document).on("click", "#searchbtn", function (e) {
   e.preventDefault();
 
+  console.log($("#search").val());
   if ($("#search").val() === "") {
+    // $("ul").css("display", "flex");
+    // $("ul").children('li:first-child').find("button").trigger("click");
     $.ajax({
       url: `http://localhost:3000/`,
       method: "get",
@@ -18,9 +21,11 @@ $(document).on("click", "#searchbtn", function (e) {
           $("ul").css("display", "none");
         }
         $("#appendData").append(sliceddata);
+        $("ul").css("display", "flex");
+        $("ul").children('li').find('button').removeClass("active");
+        $("ul").children("li:first-child").find("button").addClass("active");
       },
     });
-    $("ul").css("display", "flex");
   } else {
     if ($("#appendData").find("h1").text() === "No Data Found") {
       alert("No Data in the database");
