@@ -1,26 +1,32 @@
 $(document).on("click", "#searchbtn", function (e) {
   e.preventDefault();
 
-  console.log($("#search").val());
+  // if search value is empty then display all the data else searched data
   if ($("#search").val() === "") {
-    // $("ul").css("display", "flex");
-    // $("ul").children('li:first-child').find("button").trigger("click");
     $.ajax({
       url: `http://localhost:3000/`,
       method: "get",
       success: function (data) {
+
+        // data gives the html string because we are rendering index page
         const sliceddata = data.slice(
           data.search(`<div class="row`),
           data.search("</section>")
         );
         $("#appendData").html("");
+
+        // if no data found then display no data found
         if (sliceddata.length === 0) {
           $("#appendData").append(
             `<h1 class="table border p-5 text-center">No Data Found in Database</h1>`
           );
           $("ul").css("display", "none");
         }
+
+        // else append the data to the table
         $("#appendData").append(sliceddata);
+
+        // if no search then display list number and active the first list number
         $("ul").css("display", "flex");
         $("ul").children('li').find('button').removeClass("active");
         $("ul").children("li:first-child").find("button").addClass("active");
@@ -35,9 +41,9 @@ $(document).on("click", "#searchbtn", function (e) {
         url: `http://localhost:3000/search?search=${$("#search").val()}`,
         method: "get",
         success: function (data) {
-          // $('#appendData').html(data)
-          console.log(data);
-          console.log(data.length);
+
+          // search gives list of data
+          // if data not found then no data found else append the data to the table
           if (data.length === 0) {
             $("#appendData").html("");
             $("#appendData").append(

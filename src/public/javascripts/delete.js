@@ -1,5 +1,6 @@
 $(document).on("click", "#delete", function (e) {
   e.preventDefault();
+
   console.log("deleting...");
   const id = e.target.parentNode.parentNode.id; // getting id of that user
   console.log(`Button with value ${id} was clicked`);
@@ -7,6 +8,8 @@ $(document).on("click", "#delete", function (e) {
   // before deleting the user ask for confirmation
   if (confirm("Are you sure to delete this user?")) {
     console.log("deleting and checking search...");
+
+    // if search value is present then delete with respect to search
     if($("#search").val().length > 0){
       console.log('searching... and deleting...');
       $.ajax({
@@ -16,26 +19,23 @@ $(document).on("click", "#delete", function (e) {
           id
         },
         success:function(count){
+
+          // remove that user from the table
           $(`div[id=${id}]`).remove();
           alert("Deleted Successfully");
+
+          // if data not found then display list number and active the first list number
           if($("#appendData").children("div").length === 0){
             alert('No data in the database');
-            $("#search").val('');
+            $("#search").val(''); // empty the search value
             $("ul").css("display", "flex");
-            // $("ul").children('li button.contains("active")').removeClass("active");
-
             $("ul").children("li:first-child").find("button").trigger("click");
-// -            $("ul").children("li:first button").trigger("click");
-
-            // $("ul").find('li:first button').addClass("active");
-            // $("ul").find('#pageno').addClass("active");
           }
+
+          // remove the last list when data is deleted
           if (count % 5 == 0) {
             $("ul").find("li:last").remove();
           }
-          // setTimeout(() => {
-          //   alert("Deleted Successfully");
-          // }, 500);
         }
       })
     }else{
@@ -46,23 +46,16 @@ $(document).on("click", "#delete", function (e) {
         data: {
           id,
         },
-        // on success remove that user from the table
         success: function (count) {
+
+          // on success remove that user from the table
           $(`div[id=${id}]`).remove();
           if ($("#appendData").children("div").length === 0) {
             if (count == 0) {
               $("#appendData").html(
                 '<h1 class="table border p-5 text-center">No Data Found</h1>'
               );
-              // }else if($("#search").val().length > 0){
-              //   alert("No Data in the database");
-              //   $('#search').val('');
-              //   $('ul').css("display", "flex");
-              //   $('ul').children("li:first button").trigger("click");
             }
-            // $('ul').remove()
-            // }else if($("#appendData").children("div").length < 5){
-            // $("ul").find(`li:contains(${activepage})`).trigger("click");
           } else if ($("#appendData").children("div").length < 5) {
             const activepage = document
               .querySelector("ul li button.active")
@@ -98,9 +91,11 @@ $(document).on("click", "#delete", function (e) {
           // const activepage = e.target.parentNode.parentNode.parentNode.siblings[0];
           // console.log(activepage);
           if (count % 5 == 0) {
-            $("ul").find("li:last").remove();
-            $("ul").find("li:last-child button").trigger("click");
+            $("ul").find("li:last-child").remove();
+            $("ul").children("li:last-child").find("button").trigger("click");
           }
+
+          // alert on delete success
           setTimeout(() => {
             alert("Deleted Successfully");
           }, 500);

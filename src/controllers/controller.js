@@ -24,16 +24,15 @@ const homepage = async (req, res) => {
 
 const searchuser = async (req, res) => {
   let { search } = req.query;
-  console.log(search);
   try {
+    // if not search then return all users
     if (!search) {
       var user = await userModel.find();
     } else {
-      console.log(typeof search);
-      const firstChar = search.charAt(0);
-      console.log(firstChar);
-      const searching = firstChar.match(/[0-9]+/g);
-      console.log(searching);
+      const firstChar = search.charAt(0); // take first character of search
+      const searching = firstChar.match(/[0-9]+/g); // check the firstcharacter is number or not
+
+      // if search first character is number then you are searching with number else you are searching with string
       if (searching == null) {
         var searchalphabet = search;
       } else {
@@ -55,9 +54,9 @@ const searchuser = async (req, res) => {
 
 const adduser = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log(req.file);
     const { username, email, contact } = req.body;
+
+    // take path from req.file and manipulate it to store in database
     let path = req.file.path;
     path = path.replace("\\", "/");
     path = path.slice(path.search("images"), path.length);
@@ -82,8 +81,8 @@ const adduser = async (req, res) => {
 
 const edituser = async (req, res) => {
   const { username, email, contact, id } = req.body;
-  console.log(req.body);
-  console.log(req.file);
+
+  // if edited photo then take new path, else old path
   const old = await userModel.findOne({ _id: id });
   const oldpath = old.path;
   if (req.file) {
@@ -112,7 +111,6 @@ const edituser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(editedUser);
     res.json(editedUser);
   } catch (error) {
     console.error(error);

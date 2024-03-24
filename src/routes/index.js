@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("node:path");
 const controller = require("../controllers/controller");
 
+// multer configuration for uploading images
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../public/images"));
@@ -13,6 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 
+// multer configuration for uploading images only jpg, jpeg and png
 const fileFilter  = (req,file,cb)=>{
   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
     cb(null,true)
@@ -21,6 +23,7 @@ const fileFilter  = (req,file,cb)=>{
   }
 }
 
+// final multer configuration for uploading images
 const upload = multer({
   storage,
   fileFilter,

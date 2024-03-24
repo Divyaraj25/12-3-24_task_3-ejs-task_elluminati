@@ -1,20 +1,29 @@
 $(document).on("click", "#edit", function (e) {
   e.preventDefault();
+
   console.log("taking data...");
+
+  // get the id of the selected user
   const id = e.target.parentNode.parentNode.id;
-  console.log(id);
-  console.log(`Button with value ${id} was clicked`);
+
+  // get email, username, contact, and profileimage name from the selected user
   let email = $(`div[id=${id}]`).find("#Email").text().trim();
   let username = $(`div[id=${id}]`).find("#Name").text().trim();
   let contact = $(`div[id=${id}]`).find("#Contact").text().trim();
   let profileImage = $(`div[id=${id}]`).find("#userProfileImage").attr("src");
-  console.log(profileImage);
+
+  // convert the profile image name to readable format
   let image = profileImage
     .slice(profileImage.search("-"), profileImage.length)
     .replaceAll("-", " ");
-  console.log(image);
+
+  // change the id of formdata to formdataforedit
   $("#formdata").attr("id", "formdataforedit");
+
+  // reset the form
   $("#formdataforedit")[0].reset();
+
+  // change the id of multibuttonforadd to multibuttonforedit
   if ($("#multibuttonforadd").attr("id") == "multibuttonforadd") {
     $("#multibuttonforadd").attr("id", "multibuttonforedit");
     $("#multibuttonforedit").text("Edit");
@@ -22,6 +31,8 @@ $(document).on("click", "#edit", function (e) {
     $("#multibutton").attr("id", "multibuttonforedit");
     $("#multibuttonforedit").text("Edit");
   }
+
+  // set the id, username, email, contact, and image name of the selected user in the form
   $("#id").val(id);
   $("#username").val(username);
   $("#email").val(email);
@@ -35,10 +46,10 @@ $(document).on("click", "#edit", function (e) {
     .text(`selected : ${image}`);
 });
 
+// form submition for edit
 $(document).on("submit", "#formdataforedit", function (e) {
   e.preventDefault();
-  console.log(e.target);
-  console.log("editing...");
+
   console.log("editing data...");
   $.ajax({
     url: "http://localhost:3000/edituser",
@@ -47,19 +58,24 @@ $(document).on("submit", "#formdataforedit", function (e) {
     processData: false,
     contentType: false,
     success: function (data) {
+
+      // edit the data in the table
       const id = $("#id").attr("value");
       $(`div[id=${id}]`).find("#Name").text(data.username);
       $(`div[id=${id}]`).find("#Email").text(data.email);
       $(`div[id=${id}]`).find("#Contact").text(data.contact);
       $(`div[id=${id}]`).find("#userProfileImage").attr("src", data.path);
+
+      // trigger the close button
       $("#close").trigger("click");
+
+      // alert the user
       setTimeout(function () {
         alert("User Edited Successfully");
       }, 500);
     },
     error: function (xhr, status, error) {
-      console.log(xhr.responseText);
-      console.log(xhr.responseJSON);
+      // alert the user if email or contact already exists
       const { code, keyValue } = xhr.responseJSON;
       if (code == 11000) {
         if (keyValue.email) {
