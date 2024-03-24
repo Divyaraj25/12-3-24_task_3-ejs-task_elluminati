@@ -74,27 +74,34 @@ $(document).on("submit", "#formdata", function (e) {
         ${(data.count - 1 + 5) / 5}
     </button></li>`);
         $("#appendData").append(appendedData);
-        $('ul').find('li:last-child button').trigger('click')
+        $("ul").find("li:last-child button").trigger("click");
       } else {
         $("#appendData").append(appendedData);
       }
       $("#formdata")[0].reset();
       $("#close").trigger("click");
-      if($('ul').find('li:first-child button').hasClass('active')&&data.count>5){
-        $('ul').find('li:last-child button').trigger('click')
+      if (
+        $("ul").find("li:first-child button").hasClass("active") &&
+        data.count > 5
+      ) {
+        $("ul").find("li:last-child button").trigger("click");
       }
       setTimeout(() => {
         alert("Registered Successfully");
-      },500)
+      }, 500);
     },
-    error: function (xhr, status, error) {
-      // $("#multibutton").attr("data-bs-dismiss", "");
-      const { e, email, contact } = xhr.responseJSON;
-      if (e.code == 11000) {
-        if (e.keyValue.email) {
-          alert(`${email} Already Exists`);
-        } else if (e.keyValue.contact) {
-          alert(`${contact} Already Exists`);
+    error: function (xhr, status, error, e) {
+      if (error === "Internal Server Error" || status === 500) {
+        alert("Only jpg, png, jpeg are allowed");
+      } else {
+        const { e, email, contact } = xhr.responseJSON;
+        if (e.code == 11000) {
+          // $("#multibutton").attr("data-bs-dismiss", "");
+          if (e.keyValue.email) {
+            alert(`${email} Already Exists`);
+          } else if (e.keyValue.contact) {
+            alert(`${contact} Already Exists`);
+          }
         }
       }
     },
