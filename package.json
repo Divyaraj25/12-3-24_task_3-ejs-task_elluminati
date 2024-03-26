@@ -7,7 +7,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js -e js,ejs"
   },
-  "git-repo": "https://github.com/divyaraj25/16-3-24_task_3-ejs-task",
+  "git-repo": "https://github.com/divyaraj25/16-3-24_task_3-ejs-task_elluminati",
   "keywords": [],
   "author": "",
   "license": "ISC",
