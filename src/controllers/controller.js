@@ -1,4 +1,5 @@
 const userModel = require("../models/users");
+const fs = require("node:fs");
 
 const homepage = async (req, res) => {
   let limit = 5;
@@ -83,6 +84,7 @@ const edituser = async (req, res) => {
   const old = await userModel.findOne({ _id: id });
   const oldpath = old.path;
   if (req.file) {
+    fs.unlinkSync(__dirname + "/../public/" + oldpath);
     var path = req.file.path;
     path = path.replace("\\", "/");
     path = path.slice(path.search("images"), path.length);
@@ -117,10 +119,13 @@ const edituser = async (req, res) => {
 
 const deleteuser = async (req, res) => {
   const id = req.body.id;
+  const path = req.body.path;
+  console.log(path);
   console.log(id);
-  await userModel.findOneAndDelete({ _id: id });
+  const deleteduser = await userModel.findOneAndDelete({ _id: id });
+  fs.unlinkSync(__dirname + "/../public/" + path);
   const count = await userModel.countDocuments();
-  res.status(200).json(count);
+  res.status(200).json({ count });
 };
 
 module.exports = {

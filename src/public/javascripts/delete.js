@@ -10,24 +10,24 @@ $(document).on("click", "#delete", function (e) {
     console.log("deleting and checking search...");
 
     // if search value is present then delete with respect to search
-    if($("#search").val().length > 0){
-      console.log('searching... and deleting...');
+    if ($("#search").val().length > 0) {
+      console.log("searching... and deleting...");
       $.ajax({
         url: "http://localhost:3000/deleteuser",
-        method:"delete",
-        data:{
-          id
+        method: "delete",
+        data: {
+          id,
         },
-        success:function(count){
-
+        success: function ({ count, deleteduser }) {
+          const path = deleteduser.path;
           // remove that user from the table
           $(`div[id=${id}]`).remove();
           alert("Deleted Successfully");
 
           // if data not found then display list number and active the first list number
-          if($("#appendData").children("div").length === 0){
-            alert('No data in the database');
-            $("#search").val(''); // empty the search value
+          if ($("#appendData").children("div").length === 0) {
+            alert("No data in the database");
+            $("#search").val(""); // empty the search value
             $("ul").css("display", "flex");
             $("ul").children("li:first-child").find("button").trigger("click");
           }
@@ -36,18 +36,23 @@ $(document).on("click", "#delete", function (e) {
           if (count % 5 == 0) {
             $("ul").find("li:last").remove();
           }
-        }
-      })
-    }else{
+        },
+      });
+    } else {
       console.log("deleting...");
+      const path =
+        e.target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.firstChild.getAttribute(
+          "src"
+        );
+      console.log(path);
       $.ajax({
         url: "http://localhost:3000/deleteuser",
         method: "delete",
         data: {
           id,
+          path,
         },
-        success: function (count) {
-
+        success: function ({ count }) {
           // on success remove that user from the table
           $(`div[id=${id}]`).remove();
           if ($("#appendData").children("div").length === 0) {
@@ -86,7 +91,7 @@ $(document).on("click", "#delete", function (e) {
               },
             });
           }
-  
+
           // console.log($("#appendData").children("div").length);
           // const activepage = e.target.parentNode.parentNode.parentNode.siblings[0];
           // console.log(activepage);
